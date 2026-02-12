@@ -1,0 +1,8 @@
+# .env files (never commit secrets)
+.env
+.env.*
+!.env-refresh.yaml
+
+# OS
+.DS_Store
+Thumbs.db
