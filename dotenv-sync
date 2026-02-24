@@ -75,7 +75,7 @@ fetch_from_op() {
 		return 1
 	fi
 	# Strip surrounding quotes that `op` sometimes adds
-	echo "${raw}" | sed '1s/^"//;$s/"$//'
+	printf '%s' "${raw}" | sed '1s/^"//;$s/"$//'
 }
 
 # Show a key-level analysis between two files.
@@ -322,7 +322,7 @@ cmd_pull() {
 
 		local tmp_file
 		tmp_file=$(mktemp)
-		printf '%s\n' "${env_data}" >"${tmp_file}"
+		printf '%s' "${env_data}" >"${tmp_file}"
 
 		# Target doesn't exist — just create it
 		if [[ ! -f ${target_path} ]]; then
@@ -411,7 +411,7 @@ cmd_push() {
 		if ${item_exists}; then
 			local tmp_remote
 			tmp_remote=$(mktemp)
-			printf '%s\n' "${remote_data}" >"${tmp_remote}"
+			printf '%s' "${remote_data}" >"${tmp_remote}"
 
 			# No changes
 			if diff -q "${target_path}" "${tmp_remote}" &>/dev/null; then
@@ -519,7 +519,7 @@ cmd_diff() {
 
 		local tmp_file
 		tmp_file=$(mktemp)
-		printf '%s\n' "${env_data}" >"${tmp_file}"
+		printf '%s' "${env_data}" >"${tmp_file}"
 
 		if [[ ! -f ${target_path} ]]; then
 			warn "Local file does not exist (would be created on pull)"
