@@ -74,8 +74,9 @@ fetch_from_op() {
 		error "Failed to fetch \"${op_item}\" from 1Password: ${raw}"
 		return 1
 	fi
-	# Strip surrounding quotes that `op` sometimes adds
-	printf '%s' "${raw}" | sed '1s/^"//;$s/"$//'
+	# Strip surrounding quotes that `op` sometimes adds, then unescape
+	# doubled quotes ("" → ") which op uses as CSV-style escaping.
+	printf '%s' "${raw}" | sed '1s/^"//;$s/"$//' | sed 's/""/"/g'
 }
 
 # Show a key-level analysis between two files.
